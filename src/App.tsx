@@ -1,7 +1,10 @@
+import StoriesFeed from "./components/StoriesFeed/StoriesFeed";
+import Header from "./components/Header/Header";
 function App() {
   return (
     <>
-      <h1>Hello World</h1>
+      <Header title="Uizard Hackernews Quest" />
+      <StoriesFeed />
     </>
   );
 }
