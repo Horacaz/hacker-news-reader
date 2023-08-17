@@ -38,9 +38,9 @@ describe("StoriesFeed", () => {
     render(<StoriesFeed />);
     const previewButton = screen.getByRole("button");
     expect(previewButton.textContent).toEqual("Open Preview");
-    await user.click(screen.getByRole("button"));
+
+    await user.click(previewButton);
     const storyIframe = screen.getByTestId("story-iframe");
-    screen.queryByRole("iframe");
     expect(storyIframe.getAttribute("src")).toEqual(story.url);
   });
 });
