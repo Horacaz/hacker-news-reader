@@ -1,27 +1,17 @@
-# React + TypeScript + Vite
+# Uizard Hacker News Reader Quest
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This App is a challenge front-end project available through the following link [https://uizard.notion.site/uizard/Quest-Front-end-Developer-89b58e89f4434634a022031b38cdcfaf](https://uizard.notion.site/uizard/Quest-Front-end-Developer-89b58e89f4434634a022031b38cdcfaf).
 
-Currently, two official plugins are available:
+It consists of a stories/news feed with an incorporated previewer that uses the [Hacker News Api](https://github.com/HackerNews/API) to fetch the latest stories from their public JSON API. It allows the user to have a quick peek of the titles of the stories, clicking them will redirect them to the respective source link of the story. The user has also the possibility to see a preview of the site by clicking the respective "Open Preview" button of each title, showing a panel to the right. Due to security policies not every site is possible to be previewed this way and the user must directly visit the site by clicking on the title.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Getting Started
 
-## Expanding the ESLint configuration
+To get start with this repository you may run `git clone https://github.com/Horacaz/hacker-news-reader`. After copying the files you will run `npm install` to install the project dependencies. When the dependecies are installed you may run `npm run dev` to start a development server and start previewing and editing the project locally.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Techstack
 
-- Configure the top-level `parserOptions` property like this:
+This project is built with Typescript on top of React, using the latest build provided by Vite. It is also unit-tested with Jest and React Testing Library.Husky is also implemented to lint every stagged files before every commit to ensure a consistent code style and that each test passes before pushing. For styling, this App uses the components provided by Chakra Ui.
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+## App Preview
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+![Uizard Hack News Reader Preview](app-preview.png)
