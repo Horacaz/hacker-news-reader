@@ -1,19 +1,75 @@
-import { Button, Grid, GridItem, Text, Link, Stack } from "@chakra-ui/react";
-import { useState } from "react";
+import {
+  Button,
+  Grid,
+  GridItem,
+  Text,
+  Link,
+  Stack,
+  Flex,
+  Box,
+  Progress,
+} from "@chakra-ui/react";
+import { useState, useEffect } from "react";
 import useStories from "../../hooks/useStories";
 import { IStory } from "../../types/stories";
 export default function StoriesFeed() {
   const [story, setStory] = useState<IStory | null>(null);
-  const stories = useStories();
+  const [previousIsDisabled, setPreviousDisabled] = useState(false);
+  const [nextIsDisabled, setNextDisabled] = useState(false);
+  const [startAt, setStart] = useState(0);
+  const endAt = startAt + 9;
+  const { loading, data } = useStories(startAt, endAt);
+  useEffect(() => {
+    if (startAt === 0) {
+      setPreviousDisabled(true);
+    } else {
+      setPreviousDisabled(false);
+    }
+    if (endAt >= 500) {
+      setNextDisabled(true);
+    } else {
+      setNextDisabled(false);
+    }
+  }, [startAt, endAt]);
+
   return (
-    <Grid templateColumns="repeat(2, 1fr)" p={4}>
-      <GridItem>
-        {stories && (
-          <ListedStory onClickCB={setStory} listOfStories={stories} />
-        )}
-      </GridItem>
-      <GridItem>{story && <StoryPreview story={story} />}</GridItem>
-    </Grid>
+    <>
+      {(loading && (
+        <Progress colorScheme="purple" size="md" isIndeterminate />
+      )) || (
+        <Grid templateColumns="repeat(2, 1fr)" p={4}>
+          <GridItem>
+            {data && <ListedStory onClickCB={setStory} listOfStories={data} />}
+            <Flex flexDirection={"column"} alignItems={"center"}>
+              <Text color={"gray.500"} fontSize={"lg"}>
+                {startAt + 1} - {endAt + 1} out of 500
+              </Text>
+              <Box>
+                <Button
+                  isDisabled={previousIsDisabled}
+                  variant="solid"
+                  m={2}
+                  colorScheme="purple"
+                  onClick={() => setStart(startAt - 10)}
+                >
+                  Previous
+                </Button>
+                <Button
+                  isDisabled={nextIsDisabled}
+                  variant="solid"
+                  m={2}
+                  colorScheme="purple"
+                  onClick={() => setStart(startAt + 10)}
+                >
+                  Next
+                </Button>
+              </Box>
+            </Flex>
+          </GridItem>
+          <GridItem>{story && <StoryPreview story={story} />}</GridItem>
+        </Grid>
+      )}
+    </>
   );
 }
 function ListedStory(props: {
@@ -24,9 +80,11 @@ function ListedStory(props: {
   return props.listOfStories.map((story) => {
     return (
       <Stack key={story.id} direction="column" spacing={-2} padding={2}>
-        <Link href={story.url} fontSize={"md"} fontWeight={"bold"} isExternal>
-          {story.title}
-        </Link>
+        <Box>
+          <Link href={story.url} fontSize={"md"} fontWeight={"bold"} isExternal>
+            {story.title}
+          </Link>
+        </Box>
         <Stack direction={"row"}>
           <Text color={"gray.500"}>Posted by: {story.by}</Text>
           <Button

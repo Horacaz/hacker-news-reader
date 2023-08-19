@@ -16,9 +16,10 @@ beforeEach(() => {
 
 describe("getLatestStoriesFromApi", () => {
   test("Succesfully sends request to Api", () => {
-    const expectedUrl =
-      "https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty";
-    getLatestStoriesFromApi();
+    const startAt = 100;
+    const endAt = 200;
+    const expectedUrl = `https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty&orderBy="$key"&startAt="${startAt}"&endAt="${endAt}"`;
+    getLatestStoriesFromApi(startAt, endAt);
     expect(global.fetch).toHaveBeenCalledTimes(1);
     expect(global.fetch).toHaveBeenCalledWith(expectedUrl);
   });
