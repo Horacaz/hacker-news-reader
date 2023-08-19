@@ -17,9 +17,12 @@ export default function StoriesFeed() {
   const [previousIsDisabled, setPreviousDisabled] = useState(false);
   const [nextIsDisabled, setNextDisabled] = useState(false);
   const [startAt, setStart] = useState(0);
+  const [frameIsLoading, setFrameLoading] = useState(true);
   const endAt = startAt + 9;
   const { loading, data } = useStories(startAt, endAt);
   function paginationValidation(startAt: number): void {
+    setStory(null);
+    setFrameLoading(true);
     if (startAt === 0) {
       setPreviousDisabled(true);
     } else {
@@ -31,9 +34,15 @@ export default function StoriesFeed() {
       setNextDisabled(false);
     }
   }
+
+  function handlePreview(story: IStory): void {
+    setFrameLoading(true);
+    setStory(story);
+  }
+
   useEffect(() => {
     paginationValidation(startAt);
-  }, [startAt, endAt]);
+  }, [startAt]);
 
   return (
     <>
@@ -43,7 +52,7 @@ export default function StoriesFeed() {
         <Grid templateColumns="repeat(2, 1fr)" p={4}>
           <GridItem>
             {data && (
-              <ListedStory showPreview={setStory} listOfStories={data} />
+              <ListedStory showPreview={handlePreview} listOfStories={data} />
             )}
             <Flex flexDirection={"column"} alignItems={"center"}>
               <Text color={"gray.500"} fontSize={"lg"}>
@@ -73,7 +82,18 @@ export default function StoriesFeed() {
               </Box>
             </Flex>
           </GridItem>
-          <GridItem>{story && <StoryPreview story={story} />}</GridItem>
+          <GridItem>
+            {story && frameIsLoading && (
+              <Progress colorScheme="purple" size="md" isIndeterminate />
+            )}
+            {story && (
+              <StoryPreview
+                isDisplayed={!frameIsLoading}
+                story={story}
+                onLoad={() => setFrameLoading(false)}
+              />
+            )}
+          </GridItem>
         </Grid>
       )}
     </>
@@ -107,16 +127,27 @@ function ListedStory(props: {
   });
 }
 
-function StoryPreview(props: { story: IStory }) {
+function StoryPreview(props: {
+  story: IStory;
+  onLoad: () => void;
+  isDisplayed: boolean;
+}) {
   const story = props.story;
   return (
-    <iframe
+    <Box
       width="100%"
       height="100%"
-      data-testid="story-iframe"
-      title={story.title}
-      src={story.url}
-    ></iframe>
+      display={props.isDisplayed ? "block" : "none"}
+    >
+      <iframe
+        width="100%"
+        height="100%"
+        data-testid="story-iframe"
+        title={story.title}
+        src={story.url}
+        onLoad={props.onLoad}
+      ></iframe>
+    </Box>
   );
 }
 
