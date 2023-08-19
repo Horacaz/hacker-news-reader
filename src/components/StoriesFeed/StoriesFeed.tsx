@@ -19,17 +19,20 @@ export default function StoriesFeed() {
   const [startAt, setStart] = useState(0);
   const endAt = startAt + 9;
   const { loading, data } = useStories(startAt, endAt);
-  useEffect(() => {
+  function paginationValidation(startAt: number): void {
     if (startAt === 0) {
       setPreviousDisabled(true);
     } else {
       setPreviousDisabled(false);
     }
-    if (endAt >= 500) {
+    if (startAt === 490) {
       setNextDisabled(true);
     } else {
       setNextDisabled(false);
     }
+  }
+  useEffect(() => {
+    paginationValidation(startAt);
   }, [startAt, endAt]);
 
   return (
@@ -39,30 +42,34 @@ export default function StoriesFeed() {
       )) || (
         <Grid templateColumns="repeat(2, 1fr)" p={4}>
           <GridItem>
-            {data && <ListedStory onClickCB={setStory} listOfStories={data} />}
+            {data && (
+              <ListedStory showPreview={setStory} listOfStories={data} />
+            )}
             <Flex flexDirection={"column"} alignItems={"center"}>
               <Text color={"gray.500"} fontSize={"lg"}>
                 {startAt + 1} - {endAt + 1} out of 500
               </Text>
               <Box>
-                <Button
-                  isDisabled={previousIsDisabled}
-                  variant="solid"
-                  m={2}
-                  colorScheme="purple"
+                <PaginatorButton
+                  text="First"
+                  isDisabledRef={previousIsDisabled}
+                  onClick={() => setStart(0)}
+                />
+                <PaginatorButton
+                  text="Previous"
+                  isDisabledRef={previousIsDisabled}
                   onClick={() => setStart(startAt - 10)}
-                >
-                  Previous
-                </Button>
-                <Button
-                  isDisabled={nextIsDisabled}
-                  variant="solid"
-                  m={2}
-                  colorScheme="purple"
+                />
+                <PaginatorButton
+                  text="Next"
+                  isDisabledRef={nextIsDisabled}
                   onClick={() => setStart(startAt + 10)}
-                >
-                  Next
-                </Button>
+                />
+                <PaginatorButton
+                  text="Last"
+                  isDisabledRef={nextIsDisabled}
+                  onClick={() => setStart(490)}
+                />
               </Box>
             </Flex>
           </GridItem>
@@ -74,9 +81,9 @@ export default function StoriesFeed() {
 }
 function ListedStory(props: {
   listOfStories: IStory[];
-  onClickCB: (article: IStory) => void;
+  showPreview: (article: IStory) => void;
 }) {
-  const callbackFunction = props.onClickCB;
+  const showPreview = props.showPreview;
   return props.listOfStories.map((story) => {
     return (
       <Stack key={story.id} direction="column" spacing={-2} padding={2}>
@@ -90,7 +97,7 @@ function ListedStory(props: {
           <Button
             colorScheme={"purple"}
             variant={"link"}
-            onClick={() => callbackFunction(story)}
+            onClick={() => showPreview(story)}
           >
             Open Preview
           </Button>
@@ -110,5 +117,23 @@ function StoryPreview(props: { story: IStory }) {
       title={story.title}
       src={story.url}
     ></iframe>
+  );
+}
+
+function PaginatorButton(props: {
+  text: string;
+  onClick: () => void;
+  isDisabledRef: boolean;
+}) {
+  return (
+    <Button
+      isDisabled={props.isDisabledRef}
+      variant="solid"
+      m={2}
+      colorScheme="purple"
+      onClick={() => props.onClick()}
+    >
+      {props.text}
+    </Button>
   );
 }
