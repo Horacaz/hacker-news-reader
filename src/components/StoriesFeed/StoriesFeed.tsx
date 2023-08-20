@@ -22,7 +22,6 @@ export default function StoriesFeed() {
   const { loading, data } = useStories(startAt, endAt);
   function paginationValidation(startAt: number): void {
     setStory(null);
-    setFrameLoading(true);
     if (startAt === 0) {
       setPreviousDisabled(true);
     } else {
@@ -49,13 +48,16 @@ export default function StoriesFeed() {
       {(loading && (
         <Progress colorScheme="purple" size="md" isIndeterminate />
       )) || (
-        <Grid templateColumns="repeat(2, 1fr)" p={4}>
+        <Grid
+          templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)" }}
+          p={4}
+        >
           <GridItem>
             {data && (
               <ListedStory showPreview={handlePreview} listOfStories={data} />
             )}
             <Flex flexDirection={"column"} alignItems={"center"}>
-              <Text color={"gray.500"} fontSize={"lg"}>
+              <Text fontSize={{ base: "8px", md: "13px" }} color={"gray.500"}>
                 {startAt + 1} - {endAt + 1} out of 500
               </Text>
               <Box>
@@ -84,7 +86,12 @@ export default function StoriesFeed() {
           </GridItem>
           <GridItem>
             {story && frameIsLoading && (
-              <Progress colorScheme="purple" size="md" isIndeterminate />
+              <Progress
+                id="progress"
+                colorScheme="purple"
+                size="md"
+                isIndeterminate
+              />
             )}
             {story && (
               <StoryPreview
@@ -108,18 +115,26 @@ function ListedStory(props: {
     return (
       <Stack key={story.id} direction="column" spacing={-2} padding={2}>
         <Box>
-          <Link href={story.url} fontSize={"md"} fontWeight={"bold"} isExternal>
+          <Link
+            href={story.url}
+            fontSize={{ base: "11px", md: "12px", lg: "15px" }}
+            fontWeight={"bold"}
+            isExternal
+          >
             {story.title}
           </Link>
         </Box>
         <Stack direction={"row"}>
-          <Text color={"gray.500"}>Posted by: {story.by}</Text>
+          <Text fontSize={{ base: "8px", md: "13px" }} color={"gray.500"}>
+            Posted by: {story.by}
+          </Text>
           <Button
+            fontSize={{ base: "8px", md: "13px" }}
             colorScheme={"purple"}
             variant={"link"}
             onClick={() => showPreview(story)}
           >
-            Open Preview
+            <Link href="#progress">Open Preview</Link>
           </Button>
         </Stack>
       </Stack>
@@ -136,12 +151,13 @@ function StoryPreview(props: {
   return (
     <Box
       width="100%"
-      height="100%"
+      height="100vh"
       display={props.isDisplayed ? "block" : "none"}
     >
       <iframe
         width="100%"
         height="100%"
+        id="story-iframe"
         data-testid="story-iframe"
         title={story.title}
         src={story.url}
@@ -158,6 +174,9 @@ function PaginatorButton(props: {
 }) {
   return (
     <Button
+      fontSize={{ base: "8px", md: "13px" }}
+      size={{ base: "xs", md: "md" }}
+      fontWeight={"bold"}
       isDisabled={props.isDisabledRef}
       variant="solid"
       m={2}
