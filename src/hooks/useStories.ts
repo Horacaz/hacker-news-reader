@@ -34,16 +34,19 @@ const latestStoriesReducer = (state: State, action: Action) => {
   }
 };
 
-export default function useStories(): IStory[] | null {
+export default function useStories(startAt: number, endAt: number): State {
   const [state, dispatch] = useReducer(latestStoriesReducer, initialState);
   useEffect(() => {
     const getLatestStories = async () => {
       dispatch({ type: "LOADING", payload: null });
       try {
-        const latestArticlesCodes = await getLatestStoriesFromApi();
-        const maximumArticlesToFetch = latestArticlesCodes.splice(0, 10);
+        const latestArticlesCodes = await getLatestStoriesFromApi(
+          startAt,
+          endAt,
+        );
+        const articlesCodes = Object.values(latestArticlesCodes);
         const latestArticles = await Promise.all(
-          maximumArticlesToFetch.map((storyId) => getStoryFromApi(storyId)),
+          articlesCodes.map((storyId) => getStoryFromApi(storyId)),
         );
         dispatch({ type: "SUCCESS", payload: latestArticles });
       } catch (error) {
@@ -51,6 +54,7 @@ export default function useStories(): IStory[] | null {
       }
     };
     getLatestStories();
-  }, []);
-  return state.data;
+  }, [startAt, endAt]);
+
+  return state;
 }
