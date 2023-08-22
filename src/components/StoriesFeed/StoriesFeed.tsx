@@ -8,36 +8,31 @@ import {
   Flex,
   Box,
   Progress,
+  useColorMode,
 } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import useStories from "../../hooks/useStories";
 import { IStory } from "../../types/stories";
 export default function StoriesFeed() {
+  const { colorMode } = useColorMode();
   const [story, setStory] = useState<IStory | null>(null);
   const [previousIsDisabled, setPreviousDisabled] = useState(false);
   const [nextIsDisabled, setNextDisabled] = useState(false);
-  const [startAt, setStart] = useState(0);
+  const [startAt, setStartAt] = useState(0);
   const [frameIsLoading, setFrameLoading] = useState(true);
   const endAt = startAt + 9;
   const { loading, data } = useStories(startAt, endAt);
-  function paginationValidation(startAt: number): void {
-    setStory(null);
-    if (startAt === 0) {
-      setPreviousDisabled(true);
-    } else {
-      setPreviousDisabled(false);
-    }
-    if (startAt === 490) {
-      setNextDisabled(true);
-    } else {
-      setNextDisabled(false);
-    }
-  }
 
-  function handlePreview(story: IStory): void {
+  const paginationValidation = (start: number): void => {
+    setStory(null);
+    setPreviousDisabled(start === 0);
+    setNextDisabled(start === 490);
+  };
+
+  const handlePreview = (selectedStory: IStory): void => {
     setFrameLoading(true);
-    setStory(story);
-  }
+    setStory(selectedStory);
+  };
 
   useEffect(() => {
     paginationValidation(startAt);
@@ -45,41 +40,45 @@ export default function StoriesFeed() {
 
   return (
     <>
-      {(loading && (
+      {loading ? (
         <Progress colorScheme="purple" size="md" isIndeterminate />
-      )) || (
+      ) : (
         <Grid
           templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)" }}
           p={4}
         >
           <GridItem>
             {data && (
-              <ListedStory showPreview={handlePreview} listOfStories={data} />
+              <ListOfStories showPreview={handlePreview} listOfStories={data} />
             )}
-            <Flex flexDirection={"column"} alignItems={"center"}>
-              <Text fontSize={{ base: "8px", md: "13px" }} color={"gray.500"}>
+            <Flex flexDirection="column" alignItems="center">
+              <Text fontSize={{ base: "8px", md: "13px" }} color="gray.500">
                 {startAt + 1} - {endAt + 1} out of 500
               </Text>
               <Box>
                 <PaginatorButton
                   text="First"
                   isDisabledRef={previousIsDisabled}
-                  onClick={() => setStart(0)}
+                  onClick={() => setStartAt(0)}
+                  colorMode={colorMode}
                 />
                 <PaginatorButton
                   text="Previous"
                   isDisabledRef={previousIsDisabled}
-                  onClick={() => setStart(startAt - 10)}
+                  onClick={() => setStartAt(startAt - 10)}
+                  colorMode={colorMode}
                 />
                 <PaginatorButton
                   text="Next"
                   isDisabledRef={nextIsDisabled}
-                  onClick={() => setStart(startAt + 10)}
+                  onClick={() => setStartAt(startAt + 10)}
+                  colorMode={colorMode}
                 />
                 <PaginatorButton
                   text="Last"
                   isDisabledRef={nextIsDisabled}
-                  onClick={() => setStart(490)}
+                  onClick={() => setStartAt(490)}
+                  colorMode={colorMode}
                 />
               </Box>
             </Flex>
@@ -106,7 +105,7 @@ export default function StoriesFeed() {
     </>
   );
 }
-function ListedStory(props: {
+function ListOfStories(props: {
   listOfStories: IStory[];
   showPreview: (article: IStory) => void;
 }) {
@@ -171,6 +170,7 @@ function PaginatorButton(props: {
   text: string;
   onClick: () => void;
   isDisabledRef: boolean;
+  colorMode: string;
 }) {
   return (
     <Button
@@ -180,7 +180,7 @@ function PaginatorButton(props: {
       isDisabled={props.isDisabledRef}
       variant="solid"
       m={2}
-      colorScheme="purple"
+      colorScheme={props.colorMode === "dark" ? "gray" : "purple"}
       onClick={() => props.onClick()}
     >
       {props.text}
