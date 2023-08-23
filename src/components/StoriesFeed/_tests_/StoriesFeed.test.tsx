@@ -13,7 +13,7 @@ function generateMockStories(startAt: number, endAt: number): IStory[] {
       id: i,
       title: `Title ${i}`,
       url: "https://Foo.com",
-      by: "Foo",
+      postedBy: "Foo",
     });
   }
   return stories;

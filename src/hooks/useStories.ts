@@ -1,6 +1,8 @@
 import { useEffect, useReducer } from "react";
 import { IStory } from "../types/stories";
 import { getLatestStoriesFromApi, getStoryFromApi } from "../api/hackerNews";
+import storyMapper from "../mappers/storyMapper";
+import Story from "../entities/story";
 
 type State = {
   loading: boolean | null;
@@ -46,7 +48,10 @@ export default function useStories(startAt: number, endAt: number): State {
         );
         const articlesCodes = Object.values(latestArticlesCodes);
         const latestArticles = await Promise.all(
-          articlesCodes.map((storyId) => getStoryFromApi(storyId)),
+          articlesCodes.map(async (storyId) => {
+            const story = storyMapper(await getStoryFromApi(storyId));
+            return new Story(story);
+          }),
         );
         dispatch({ type: "SUCCESS", payload: latestArticles });
       } catch (error) {
