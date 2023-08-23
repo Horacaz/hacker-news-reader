@@ -125,7 +125,7 @@ function ListOfStories(props: {
         </Box>
         <Stack direction={"row"}>
           <Text fontSize={{ base: "8px", md: "13px" }} color={"gray.500"}>
-            Posted by: {story.by}
+            Posted by: {story.postedBy}
           </Text>
           <Button
             fontSize={{ base: "8px", md: "13px" }}

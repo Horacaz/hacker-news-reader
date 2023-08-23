@@ -21,13 +21,13 @@ describe("useStories", () => {
       id: 300,
       title: "Title",
       url: "https://Foo.com",
-      by: "Foo",
+      postedBy: "Foo",
     },
     {
       id: 301,
       title: "Title",
       url: "https://Foo.com",
-      by: "Foo",
+      postedBy: "Foo",
     },
   ];
   it("Should return an array of Stories", async () => {

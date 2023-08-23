@@ -1,4 +1,4 @@
-import { IStory, LatestStories } from "../types/stories";
+import { IUnparsedStory, LatestStories } from "../types/stories";
 export async function getLatestStoriesFromApi(
   startAt: number,
   endAt: number,
@@ -8,7 +8,9 @@ export async function getLatestStoriesFromApi(
   return latestStories;
 }
 
-export async function getStoryFromApi(storyId: number): Promise<IStory> {
+export async function getStoryFromApi(
+  storyId: number,
+): Promise<IUnparsedStory> {
   const URL = `https://hacker-news.firebaseio.com/v0/item/${storyId}.json?print=pretty`;
   const story = await fetch(URL).then((res) => res.json());
   return story;
