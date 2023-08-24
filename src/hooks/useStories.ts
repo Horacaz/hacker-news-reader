@@ -1,8 +1,8 @@
-import { useEffect, useReducer } from "react";
+import { useEffect, useReducer, useMemo } from "react";
 import { IStory } from "../types/stories";
-import { getLatestStoriesFromApi, getStoryFromApi } from "../api/hackerNews";
-import storyMapper from "../mappers/storyMapper";
-import Story from "../entities/story";
+import StorageService from "../services/storageService";
+import ApiService from "../services/apiService";
+import HackerNewsService from "../services/hackerNewsService";
 
 type State = {
   loading: boolean | null;
@@ -37,29 +37,33 @@ const latestStoriesReducer = (state: State, action: Action) => {
 };
 
 export default function useStories(startAt: number, endAt: number): State {
+  const hackerNewsService = useMemo(
+    () => new HackerNewsService(new ApiService(), new StorageService()),
+    [],
+  );
+
   const [state, dispatch] = useReducer(latestStoriesReducer, initialState);
   useEffect(() => {
-    const getLatestStories = async () => {
+    const getStories = async () => {
       dispatch({ type: "LOADING", payload: null });
       try {
-        const latestArticlesCodes = await getLatestStoriesFromApi(
+        const latestArticlesCodes = await hackerNewsService.getLatestStories(
           startAt,
           endAt,
         );
         const articlesCodes = Object.values(latestArticlesCodes);
         const latestArticles = await Promise.all(
-          articlesCodes.map(async (storyId) => {
-            const story = storyMapper(await getStoryFromApi(storyId));
-            return new Story(story);
-          }),
+          articlesCodes.map(
+            async (storyId) => await hackerNewsService.getStory(storyId),
+          ),
         );
         dispatch({ type: "SUCCESS", payload: latestArticles });
       } catch (error) {
         dispatch({ type: "ERROR", payload: null });
       }
     };
-    getLatestStories();
-  }, [startAt, endAt]);
+    getStories();
+  }, [startAt, endAt, hackerNewsService]);
 
   return state;
 }

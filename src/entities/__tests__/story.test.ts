@@ -1,5 +1,5 @@
-import { IStory } from "../types/stories";
-import Story from "./story";
+import { IStory } from "../../types/stories";
+import Story from "../story";
 
 const storyMock: IStory = {
   id: 1,
