@@ -1,5 +1,5 @@
-import { IUnparsedStory, IStory } from "../types/stories";
-import storyMapper from "./storyMapper";
+import { IUnparsedStory, IStory } from "../../types/stories";
+import storyMapper from "../storyMapper";
 
 const storyMock: IUnparsedStory = {
   id: 1,

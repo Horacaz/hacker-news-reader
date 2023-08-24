@@ -1,4 +1,5 @@
 import { IUnparsedStory, IStory } from "../types/stories";
+import Story from "../entities/story";
 
 export default function storyMapper(story: IUnparsedStory): IStory {
   const id = story.id;
@@ -6,10 +7,10 @@ export default function storyMapper(story: IUnparsedStory): IStory {
   const url = story.url;
   const postedBy = story.by;
 
-  return {
+  return new Story({
     id,
     title,
     url,
     postedBy,
-  };
+  });
 }
