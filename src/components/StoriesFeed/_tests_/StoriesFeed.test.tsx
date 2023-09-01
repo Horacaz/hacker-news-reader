@@ -1,9 +1,9 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import StoriesFeed from "../StoriesFeed";
-import useStories from "../../../hooks/useStories";
-import { IStory } from "../../../types/stories";
-jest.mock("../../../hooks/useStories");
+import useStories from "@/hooks/useStories";
+import { IStory } from "@/types/stories";
+jest.mock("@/hooks/useStories");
 
 const mockUseStories = useStories as jest.Mock;
 function generateMockStories(startAt: number, endAt: number): IStory[] {

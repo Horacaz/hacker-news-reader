@@ -1,4 +1,4 @@
-import { IStory } from "../../types/stories";
+import { IStory } from "@/types/stories";
 import Story from "../story";
 
 const storyMock: IStory = {

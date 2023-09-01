@@ -1,5 +1,5 @@
-import StoriesFeed from "./components/StoriesFeed/StoriesFeed";
-import Header from "./components/Header/Header";
+import StoriesFeed from "@/components/StoriesFeed/StoriesFeed";
+import Header from "@/components/Header/Header";
 function App() {
   return (
     <>

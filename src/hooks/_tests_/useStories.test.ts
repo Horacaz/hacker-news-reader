@@ -1,8 +1,8 @@
 import { renderHook, waitFor } from "@testing-library/react";
-import { IStory } from "../../types/stories";
+import { IStory } from "@/types/stories";
 import useStories from "../useStories";
 
-jest.mock("../../api/hackerNews", () => {
+jest.mock("@/api/hackerNews", () => {
   return {
     getLatestStoriesFromApi: jest.fn(() => Promise.resolve([300, 301])),
     getStoryFromApi: jest.fn((storyId) =>

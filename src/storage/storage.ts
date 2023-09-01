@@ -1,4 +1,4 @@
-import { IStory } from "../types/stories";
+import { IStory } from "@/types/stories";
 
 export function saveStoryToLocalStorage(story: IStory): void {
   localStorage.setItem(`${story.id}`, JSON.stringify(story));

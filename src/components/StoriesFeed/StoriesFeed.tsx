@@ -9,8 +9,8 @@ import {
 } from "@chakra-ui/react";
 
 import { useState, useEffect } from "react";
-import useStories from "../../hooks/useStories";
-import { IStory } from "../../types/stories";
+import useStories from "@/hooks/useStories";
+import { IStory } from "@/types/stories";
 import ListOfStories from "./ListOfStories";
 import PaginatorButton from "./PaginatorButton";
 import StoryPreview from "./StoryPreview";

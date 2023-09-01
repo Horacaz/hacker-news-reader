@@ -1,5 +1,5 @@
 import { Stack, Text, Link, Button, Box } from "@chakra-ui/react";
-import { IStory } from "../../types/stories";
+import { IStory } from "@/types/stories";
 export default function ListOfStories(props: {
   listOfStories: IStory[];
   showPreview: (article: IStory) => void;

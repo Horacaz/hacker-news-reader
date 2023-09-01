@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { IStory } from "../../../types/stories";
+import { IStory } from "@/types/stories";
 import ListOfStories from "../ListOfStories";
 
 const listOfStories: IStory[] = [

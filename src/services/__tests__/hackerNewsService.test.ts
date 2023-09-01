@@ -1,5 +1,5 @@
 import HackerNewsService from "../hackerNewsService";
-jest.mock("../../mappers/storyMapper", () => jest.fn());
+jest.mock("@/mappers/storyMapper", () => jest.fn());
 
 const apiServiceMock = {
   getLatestStoriesFromApi: jest.fn(),

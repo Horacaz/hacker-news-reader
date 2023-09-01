@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import StoryPreview from "../StoryPreview";
-import { IStory } from "../../../types/stories";
+import { IStory } from "@/types/stories";
 
 const storyMock: IStory = {
   id: 1,

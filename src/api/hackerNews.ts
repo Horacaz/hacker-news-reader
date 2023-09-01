@@ -1,4 +1,4 @@
-import { IUnparsedStory, LatestStories } from "../types/stories";
+import { IUnparsedStory, LatestStories } from "@/types/stories";
 export async function getLatestStoriesFromApi(
   startAt: number,
   endAt: number,

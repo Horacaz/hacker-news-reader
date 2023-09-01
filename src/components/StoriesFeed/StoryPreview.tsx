@@ -1,4 +1,4 @@
-import { IStory } from "../../types/stories";
+import { IStory } from "@/types/stories";
 import { Box } from "@chakra-ui/react";
 
 export default function StoryPreview(props: {
