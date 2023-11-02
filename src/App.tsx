@@ -1,10 +1,12 @@
-import StoriesFeed from "@/components/StoriesFeed/StoriesFeed";
-import Header from "@/components/Header/Header";
+import { StoriesFeedProvider, StoriesFeed } from "@/components/StoriesFeed";
+import Header from "@/components/Header";
 function App() {
   return (
     <>
       <Header />
-      <StoriesFeed />
+      <StoriesFeedProvider>
+        <StoriesFeed />
+      </StoriesFeedProvider>
     </>
   );
 }

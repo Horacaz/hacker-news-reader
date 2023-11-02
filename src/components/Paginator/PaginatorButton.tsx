@@ -1,10 +1,13 @@
 import { Button } from "@chakra-ui/react";
-export default function PaginatorButton(props: {
+
+type PaginatorButtonProps = {
   text: string;
   onClick: () => void;
   isDisabledRef: boolean;
   colorMode: string;
-}) {
+};
+
+export default function PaginatorButton(props: PaginatorButtonProps) {
   return (
     <Button
       fontSize={{ base: "8px", md: "13px" }}

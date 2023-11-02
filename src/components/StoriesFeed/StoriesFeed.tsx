@@ -1,108 +1,101 @@
-import {
-  Grid,
-  GridItem,
-  Text,
-  Flex,
-  Box,
-  Progress,
-  useColorMode,
-} from "@chakra-ui/react";
-
-import { useState, useEffect } from "react";
-import useStories from "@/hooks/useStories";
+import { Grid, GridItem, Text, Flex, Box, Progress } from "@chakra-ui/react";
+import { useEffect } from "react";
 import { IStory } from "@/types/stories";
 import ListOfStories from "./ListOfStories";
-import PaginatorButton from "./PaginatorButton";
 import StoryPreview from "./StoryPreview";
-export default function StoriesFeed() {
-  const { colorMode } = useColorMode();
-  const [story, setStory] = useState<IStory | null>(null);
-  const [previousIsDisabled, setPreviousDisabled] = useState(false);
-  const [nextIsDisabled, setNextDisabled] = useState(false);
-  const [startAt, setStartAt] = useState(0);
-  const [frameIsLoading, setFrameLoading] = useState(true);
-  const endAt = startAt + 9;
-  const { loading, data } = useStories(startAt, endAt);
+import useStoriesFeed from "@/hooks/useStoriesFeed";
+import useStories from "@/hooks/useStories";
+import Paginator from "../Paginator";
+import ErrorMessage from "../ErrorMessage";
+import { StoriesState } from "@/types/storiesFeedContext";
 
-  const paginationValidation = (start: number): void => {
-    setStory(null);
-    setPreviousDisabled(start === 0);
-    setNextDisabled(start === 490);
-  };
+type StoriesFeedContentProps = {
+  state: StoriesState;
+  data: IStory[];
+  handlePreview: (story: IStory) => void;
+  handlePaginationState: (startAt: number) => void;
+  handleFrameLoadingState: (frameIsLoading: boolean) => void;
+};
+export default function StoriesFeed() {
+  const {
+    state,
+    handleStoryState,
+    handleFrameLoadingState,
+    handlePaginationState,
+  } = useStoriesFeed();
+
+  const { loading, data, error } = useStories(state.startAt, state.endAt);
 
   const handlePreview = (selectedStory: IStory): void => {
-    setFrameLoading(true);
-    setStory(selectedStory);
+    handleStoryState(selectedStory);
   };
 
   useEffect(() => {
-    paginationValidation(startAt);
-  }, [startAt]);
+    handlePaginationState(state.startAt);
+  }, [handlePaginationState, state.startAt]);
+
+  if (loading)
+    return <Progress colorScheme="purple" size="md" isIndeterminate />;
+  if (data)
+    return (
+      <StoriesFeedContent
+        state={state}
+        data={data}
+        handlePreview={handlePreview}
+        handlePaginationState={handlePaginationState}
+        handleFrameLoadingState={handleFrameLoadingState}
+      />
+    );
+  if (error) return <ErrorMessage message={error.message} />;
+}
+
+function StoriesFeedContent(props: StoriesFeedContentProps) {
+  const {
+    data,
+    handlePreview,
+    handlePaginationState,
+    handleFrameLoadingState,
+    state,
+  } = props;
 
   return (
-    <>
-      {loading ? (
-        <Progress colorScheme="purple" size="md" isIndeterminate />
-      ) : (
-        <Grid
-          templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)" }}
-          p={4}
-        >
-          <GridItem>
-            {data && (
-              <ListOfStories showPreview={handlePreview} listOfStories={data} />
-            )}
-            <Flex flexDirection="column" alignItems="center">
-              <Text fontSize={{ base: "8px", md: "13px" }} color="gray.500">
-                {startAt + 1} - {endAt + 1} out of 500
-              </Text>
-              <Box>
-                <PaginatorButton
-                  text="First"
-                  isDisabledRef={previousIsDisabled}
-                  onClick={() => setStartAt(0)}
-                  colorMode={colorMode}
-                />
-                <PaginatorButton
-                  text="Previous"
-                  isDisabledRef={previousIsDisabled}
-                  onClick={() => setStartAt(startAt - 10)}
-                  colorMode={colorMode}
-                />
-                <PaginatorButton
-                  text="Next"
-                  isDisabledRef={nextIsDisabled}
-                  onClick={() => setStartAt(startAt + 10)}
-                  colorMode={colorMode}
-                />
-                <PaginatorButton
-                  text="Last"
-                  isDisabledRef={nextIsDisabled}
-                  onClick={() => setStartAt(490)}
-                  colorMode={colorMode}
-                />
-              </Box>
-            </Flex>
-          </GridItem>
-          <GridItem>
-            {story && frameIsLoading && (
-              <Progress
-                id="progress"
-                colorScheme="purple"
-                size="md"
-                isIndeterminate
-              />
-            )}
-            {story && (
-              <StoryPreview
-                isDisplayed={!frameIsLoading}
-                story={story}
-                onLoad={() => setFrameLoading(false)}
-              />
-            )}
-          </GridItem>
-        </Grid>
-      )}
-    </>
+    <Grid
+      templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)" }}
+      p={4}
+    >
+      <GridItem>
+        {data && (
+          <ListOfStories showPreview={handlePreview} listOfStories={data} />
+        )}
+        <Flex flexDirection="column" alignItems="center">
+          <Text fontSize={{ base: "8px", md: "13px" }} color="gray.500">
+            {state.startAt + 1} - {state.endAt + 1} out of 500
+          </Text>
+          <Box>
+            <Paginator
+              state={state}
+              handlePaginationState={handlePaginationState}
+            />
+          </Box>
+        </Flex>
+      </GridItem>
+      <GridItem>
+        {state.story && state.frameIsLoading && (
+          <Progress
+            id="progress"
+            colorScheme="purple"
+            size="md"
+            isIndeterminate
+          />
+        )}
+        {state.story && (
+          <StoryPreview
+            isDisplayed={!state.frameIsLoading}
+            story={state.story}
+            onLoad={() => handleFrameLoadingState(!state.frameIsLoading)}
+          />
+        )}
+      </GridItem>
+    </Grid>
   );
 }

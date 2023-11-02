@@ -1,0 +1,160 @@
+[
+  {
+    "by": "brycewray",
+    "descendants": 45,
+    "id": 38118627,
+    "kids": [
+      38119065, 38119039, 38119373, 38119203, 38119083, 38118894, 38118904,
+      38118964, 38119102, 38119277, 38119110, 38119159, 38119181, 38119055,
+      38118869, 38119037, 38118996
+    ],
+    "score": 138,
+    "time": 1698952784,
+    "title": "Google apparently backs off on WEI",
+    "type": "story",
+    "url": "https://android-developers.googleblog.com/2023/11/increasing-trust-for-embedded-media.html"
+  },
+  {
+    "by": "DerekBickerton",
+    "descendants": 23,
+    "id": 38117289,
+    "kids": [38118172, 38117731, 38117828],
+    "score": 55,
+    "time": 1698946897,
+    "title": "Joint Statement on AI Safety and Openness",
+    "type": "story",
+    "url": "https://open.mozilla.org/letter/"
+  },
+  {
+    "by": "pbrw",
+    "descendants": 608,
+    "id": 38111483,
+    "kids": [
+      38118391, 38118381, 38111916, 38112122, 38111914, 38118207, 38118287,
+      38113393, 38112166, 38112855, 38118311, 38116681, 38115214, 38112060,
+      38114143, 38114758, 38115631, 38111604, 38113374, 38111934, 38114275,
+      38116171, 38117678, 38112697, 38114711, 38112445, 38114813, 38112201,
+      38111939, 38114540, 38112239, 38116815, 38114320, 38112179, 38114419,
+      38114111, 38112247, 38112805, 38111917, 38114462, 38117836, 38115940,
+      38117407
+    ],
+    "score": 619,
+    "time": 1698921266,
+    "title": "EU data regulator bans personalised advertising on Facebook and Instagram",
+    "type": "story",
+    "url": "https://dig.watch/updates/eu-data-regulator-decided-to-ban-personalised-advetising-on-facebook-and-instagram"
+  },
+  {
+    "by": "simonpure",
+    "descendants": 104,
+    "id": 38112827,
+    "kids": [
+      38116558, 38116759, 38116777, 38117854, 38118252, 38116470, 38117752
+    ],
+    "score": 138,
+    "time": 1698929627,
+    "title": "How to Not Get Screwed over as a Software Engineer [video]",
+    "type": "story",
+    "url": "https://www.ycombinator.com/library/KF-how-to-not-get-screwed-over-as-a-software-engineer"
+  },
+  {
+    "by": "mcp_",
+    "descendants": 82,
+    "id": 38116498,
+    "kids": [
+      38117401, 38117674, 38117950, 38118267, 38117467, 38118072, 38118273,
+      38117818, 38118054, 38116809, 38117941, 38117414, 38117921, 38117173,
+      38117589, 38118039, 38117405, 38117224, 38117052, 38116960, 38117227,
+      38117982, 38116832, 38116896, 38117543, 38117329, 38117266
+    ],
+    "score": 101,
+    "time": 1698944214,
+    "title": "Current thoughts on social media",
+    "type": "story",
+    "url": "https://martinfowler.com/articles/2023-social-media.html"
+  },
+  {
+    "by": "soheilpro",
+    "descendants": 118,
+    "id": 38112951,
+    "kids": [
+      38115814, 38118137, 38116446, 38117015, 38116440, 38115234, 38117501,
+      38115005, 38117907, 38116358, 38118040, 38115229, 38116894, 38113515,
+      38116481, 38117553, 38116300, 38117813, 38115377, 38115131, 38116599,
+      38115090, 38116683, 38115308, 38115062, 38117107, 38114878
+    ],
+    "score": 192,
+    "time": 1698930333,
+    "title": "Confusing Git Terminology",
+    "type": "story",
+    "url": "https://jvns.ca/blog/2023/11/01/confusing-git-terminology/"
+  },
+  {
+    "by": "plurby",
+    "descendants": 93,
+    "id": 38110072,
+    "kids": [
+      38113075, 38116245, 38112558, 38111787, 38111252, 38112131, 38112557,
+      38113652, 38116399, 38111931, 38113992, 38116056, 38111359, 38113749,
+      38111211
+    ],
+    "score": 305,
+    "time": 1698910353,
+    "title": "Talk-Llama",
+    "type": "story",
+    "url": "https://github.com/ggerganov/whisper.cpp/tree/master/examples/talk-llama"
+  },
+  {
+    "by": "jacobr",
+    "descendants": 34,
+    "id": 38112443,
+    "kids": [
+      38116099, 38115853, 38115112, 38115737, 38117908, 38112536, 38117699,
+      38116067
+    ],
+    "score": 61,
+    "time": 1698927429,
+    "title": "Styling with Classy CSS (2006)",
+    "type": "story",
+    "url": "https://thedailywtf.com/articles/Styling_With_Classy_CSS"
+  },
+  {
+    "by": "jkubicek",
+    "descendants": 22,
+    "id": 38113792,
+    "kids": [
+      38114881, 38114567, 38114703, 38117728, 38113847, 38116236, 38117826,
+      38115362
+    ],
+    "score": 50,
+    "time": 1698934414,
+    "title": "The 8000th Busy Beaver number eludes ZF set theory (2016)",
+    "type": "story",
+    "url": "https://scottaaronson.blog/?p=2725"
+  },
+  {
+    "by": "protontypes",
+    "descendants": 137,
+    "id": 38080951,
+    "kids": [
+      38110705, 38117959, 38113234, 38114830, 38113239, 38111034, 38111803,
+      38112602, 38116115, 38110698, 38110129, 38116076, 38112731, 38116836,
+      38111756, 38080969, 38112923, 38111257, 38111692, 38081002, 38111312,
+      38112420, 38111002, 38112649, 38111886, 38111499, 38113156
+    ],
+    "score": 384,
+    "time": 1698733245,
+    "title": "Grist is a modern, relational spreadsheet",
+    "type": "story",
+    "url": "https://github.com/gristlabs/grist-core"
+  },
+  {
+    "by": "dwiner",
+    "id": 38116571,
+    "score": 1,
+    "time": 1698944449,
+    "title": "Ciro (YC S22) is hiring founding engineers to build an SMB search engine",
+    "type": "job",
+    "url": "https://www.ycombinator.com/companies/ciro/jobs"
+  }
+]

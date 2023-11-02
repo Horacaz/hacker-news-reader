@@ -30,7 +30,7 @@ describe("useStories", () => {
       postedBy: "Foo",
     },
   ];
-  it("Should return an array of Stories", async () => {
+  test("Should return an array of Stories", async () => {
     const { result } = renderHook(() => useStories(300, 301));
     await waitFor(() => {
       expect(result.current).toEqual({
