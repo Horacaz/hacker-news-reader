@@ -1,4 +1,5 @@
-import { StoriesFeedProvider, StoriesFeed } from "@/components/StoriesFeed";
+import StoriesFeed from "@/components/StoriesFeed";
+import { StoriesFeedProvider } from "@/context/StoriesFeedContext";
 import Header from "@/components/Header";
 function App() {
   return (

@@ -1,21 +1,21 @@
 /// <reference types="cypress" />
 import latestStories from "../fixtures/latestStories.json";
 import stories from "../fixtures/stories.json";
-const latestStoriesCodes = Object.keys(latestStories);
+const latestStoriesCodes = Object.values(latestStories);
 
 describe("Hacker News Reader", () => {
   it("Should render a list of stories", () => {
     cy.visit("http://localhost:5173");
     cy.intercept(
       "GET",
-      "https://hacker-news.firebaseio.com/v0/topstories.json/*",
+      "https://hacker-news.firebaseio.com/v0/topstories.json**",
       latestStories,
     );
 
     latestStoriesCodes.forEach((storyId, index) => {
       cy.intercept(
         "GET",
-        `https://hacker-news.firebaseio.com/v0/item/${storyId}.json`,
+        `https://hacker-news.firebaseio.com/v0/item/${storyId}.json**`,
         stories[index],
       );
     });
