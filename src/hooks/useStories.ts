@@ -1,3 +1,5 @@
+/// refactor to use useStoriesFeed
+
 import { useEffect, useReducer, useMemo } from "react";
 import { IStory } from "../types/stories";
 import StorageService from "../services/storageService";

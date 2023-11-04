@@ -1,9 +1,9 @@
 import {
   saveStoryToLocalStorage,
   getStoryFromLocalStorage,
-} from "../../storage/storage";
+} from "@/storage/storage";
 import StorageService from "../storageService";
-import { IStory } from "../../types/stories";
+import { IStory } from "@/types/stories";
 
 jest.mock("../../storage/storage", () => ({
   saveStoryToLocalStorage: jest.fn(),
@@ -30,10 +30,12 @@ describe("StorageService", () => {
     });
   });
 
-  test("getStoryFromLocalStorage", () => {
-    const storyId = 100;
-    storageService.getStoryFromLocalStorage(storyId);
-    expect(getStoryFromLocalStorage).toHaveBeenCalledWith(storyId);
-    expect(getStoryFromLocalStorage).toHaveBeenCalledTimes(1);
+  describe("getStoryFromLocalStorage", () => {
+    test("getStoryFromLocalStorage is called with valid data", () => {
+      const storyId = 100;
+      storageService.getStoryFromLocalStorage(storyId);
+      expect(getStoryFromLocalStorage).toHaveBeenCalledWith(storyId);
+      expect(getStoryFromLocalStorage).toHaveBeenCalledTimes(1);
+    });
   });
 });

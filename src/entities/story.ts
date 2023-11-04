@@ -1,4 +1,4 @@
-import { IStory } from "../types/stories";
+import { IStory } from "@/types/stories";
 
 export default class Story implements IStory {
   id: number;

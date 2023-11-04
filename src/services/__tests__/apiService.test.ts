@@ -1,6 +1,6 @@
-import { getStoryFromApi, getLatestStoriesFromApi } from "../../api/hackerNews";
+import { getStoryFromApi, getLatestStoriesFromApi } from "@/api/hackerNews";
 import ApiService from "../apiService";
-jest.mock("../../api/hackerNews", () => ({
+jest.mock("@/api/hackerNews", () => ({
   getLatestStoriesFromApi: jest.fn(),
   getStoryFromApi: jest.fn(),
 }));

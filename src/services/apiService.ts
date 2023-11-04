@@ -1,5 +1,5 @@
-import { IUnparsedStory } from "../types/stories";
-import { getLatestStoriesFromApi, getStoryFromApi } from "../api/hackerNews";
+import { IUnparsedStory } from "@/types/stories";
+import { getLatestStoriesFromApi, getStoryFromApi } from "@/api/hackerNews";
 export default class ApiService {
   constructor() {}
   async getLatestStoriesFromApi(

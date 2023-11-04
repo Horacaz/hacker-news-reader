@@ -1,5 +1,5 @@
-import { saveStoryToLocalStorage, getStoryFromLocalStorage } from "./storage";
-import { IStory } from "../types/stories";
+import { saveStoryToLocalStorage, getStoryFromLocalStorage } from "../storage";
+import { IStory } from "@/types/stories";
 
 const setItemMock = jest.fn();
 const getItemMock = jest.fn();
